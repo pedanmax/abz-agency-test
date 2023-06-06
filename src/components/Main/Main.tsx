@@ -3,10 +3,10 @@ import Get from '../../sections/Get/Get';
 
 const Main = () => {
   return (
-    <>
+    <main className='main'>
       <About />
       <Get />
-    </>
+    </main>
   );
 };
 
