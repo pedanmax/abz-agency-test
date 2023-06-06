@@ -6,10 +6,10 @@ const Header = () => {
   return (
     <header className='header'>
       <div className="header__container">
-        <div className="header__logo-box">
+        <a href='!#' className="header__logo-box">
           <img src={logo} alt="" className="header__logo" />
           <h6 className="header__logo-text">testtask</h6>
-        </div>
+        </a>
         <nav className='header__navigation'>
           <ul className="header__list list">
             {['Users', 'Sign up'].map((section) => <Button key={section} text={section} />)}
