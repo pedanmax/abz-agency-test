@@ -12,8 +12,12 @@ const Header = () => {
         </a>
         <nav className='header__navigation'>
           <ul className="header__list list">
-            <Button text='Users' anchor='#get' />
-            <Button text='Sign up' anchor='#post' />
+            <li className='list__item'>
+              <Button text='Users' anchor='#get' />
+            </li>
+            <li className='list__item'>
+              <Button text='Sign up' anchor='#post' />
+            </li>
           </ul>
         </nav>
       </div>

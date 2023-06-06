@@ -1,0 +1,20 @@
+.cardlist{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 29px;
+  margin-bottom: 50px;
+  &__item{
+    flex: 0 1 370px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.5s ease;
+    &:hover{
+      box-shadow: 0 0 10px 1px #000;
+    }
+  }
+}
+.loading{
+  font-size: 50px;
+  font-weight: 700;
+  color: red;
+}

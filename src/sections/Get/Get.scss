@@ -1,9 +1,14 @@
 @import '../../styles/variables.scss';
 .get{
+  margin-bottom: 140px;
   &__container{
     max-width: $max-width-big;
     box-sizing: border-box;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   &__title{
     color: #000;

@@ -1,17 +1,24 @@
 import './Button.scss';
 
-const Button = ({ text, anchor } : { text:string, anchor:string }) => {
-  const padding = text === 'Users' ? '4px 29px' : '4px 22px';
+interface ButtonProps {
+  text:string,
+  anchor?: string,
+  func?: () => void,
+}
+
+const Button = ({
+  text, anchor, func,
+} : ButtonProps) => {
+  const padding = text === 'Users' ? '6px 29px' : '6px 22px';
   return (
-    <li className="list__item">
-      <a
-        href={anchor}
-        className="list__link"
-        style={{ padding }}
-      >
-        {text}
-      </a>
-    </li>
+    <a
+      href={anchor}
+      className="list__link"
+      style={{ padding }}
+      onClick={func}
+    >
+      {text}
+    </a>
   );
 };
 

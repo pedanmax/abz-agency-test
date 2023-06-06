@@ -1,15 +1,11 @@
 @import '../../styles/variables.scss';
 .list{
-  &__item{
-    width: 100px;
-    text-align: center;
-    padding: 6px 0;
-  }
   &__link{
+    cursor: pointer;
+    text-align: center;
     color: rgba(0, 0, 0, 0.87);
     background-color: $primary-color;
     border-radius: 80px;
-    padding: 4px 22px;
     transition: all 0.3s ease;
     font-weight: 500;
     &:hover{

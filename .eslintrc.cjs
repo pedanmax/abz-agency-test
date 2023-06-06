@@ -27,5 +27,9 @@ module.exports = {
     'react/function-component-definition': 0,
     'arrow-body-style': 0,
     'react/no-unescaped-entities': 0,
+    'react/require-default-props': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'off',
+    'react-hooks/exhaustive-deps': 0,
   },
 };
