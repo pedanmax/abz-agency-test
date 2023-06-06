@@ -1,11 +1,11 @@
 import './Button.scss';
 
-const Button = ({ text } : { text:string }) => {
+const Button = ({ text, anchor } : { text:string, anchor:string }) => {
   const padding = text === 'Users' ? '4px 29px' : '4px 22px';
   return (
     <li className="list__item">
       <a
-        href="!#"
+        href={anchor}
         className="list__link"
         style={{ padding }}
       >

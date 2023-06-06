@@ -34,6 +34,7 @@
   .about{
     &__container{
       max-width: $max-width-desctop;
+      background: url(../../assets/bg-desctop.png)0 0 / cover no-repeat;
     }
   }
 }
@@ -43,6 +44,7 @@
     &__container{
       max-width: $max-width-laptop;
       padding: 89px 15px;
+      background: url(../../assets/bg-laptop.png)0 0 / cover no-repeat;
     }
   }
 }
@@ -52,7 +54,8 @@
     &__container{
       max-width: $max-width-mobile;
       padding-top: 40px;
-      padding-bottom: 71px;     
+      padding-bottom: 71px;   
+      background: url(../../assets/bg-mobile.png)0 0 / cover no-repeat;  
     }
     &__title{
       text-align: center;

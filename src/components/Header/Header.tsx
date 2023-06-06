@@ -12,7 +12,8 @@ const Header = () => {
         </a>
         <nav className='header__navigation'>
           <ul className="header__list list">
-            {['Users', 'Sign up'].map((section) => <Button key={section} text={section} />)}
+            <Button text='Users' anchor='#get' />
+            <Button text='Sign up' anchor='#post' />
           </ul>
         </nav>
       </div>

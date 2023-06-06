@@ -1,0 +1,43 @@
+@import '../../styles/variables.scss';
+.get{
+  &__container{
+    max-width: $max-width-big;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+  &__title{
+    color: #000;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width:1024px){
+  .get{
+    &__container{
+      max-width: $max-width-desctop;
+    }
+  }
+}
+
+@media (max-width:768px){
+  .get{
+    &__container{
+      max-width: $max-width-laptop;
+    }
+  }
+}
+
+@media (max-width:360px){
+  .get{
+    &__container{
+      max-width: $max-width-mobile;     
+    }
+    &__title{
+      max-width: 328px;
+      margin-left: 16px;
+    }
+  }
+}
