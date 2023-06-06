@@ -26,5 +26,6 @@ module.exports = {
     'jsx-quotes': 0,
     'react/function-component-definition': 0,
     'arrow-body-style': 0,
+    'react/no-unescaped-entities': 0,
   },
 };

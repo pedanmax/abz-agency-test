@@ -1,0 +1,62 @@
+@import '../../styles/variables.scss';
+
+.about{
+  margin-bottom: 140px;
+  &__container{
+    max-width: $max-width-big;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 164px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url(../../assets/bg-image.png)0 0 / cover no-repeat;
+  }
+  &__title{
+    color: #fff;
+    margin-bottom: 21px;
+    font-size: 40px;
+    max-width: 380px;
+    line-height: 40px;
+    margin-left: 24px;
+  }
+  &__paragraph{
+    color: #fff;
+    margin-bottom: 32px;
+    max-width: 380px;
+    text-align: center;
+    line-height: 26px;
+  }
+}
+
+@media (max-width:1024px){
+  .about{
+    &__container{
+      max-width: $max-width-desctop;
+    }
+  }
+}
+
+@media (max-width:768px){
+  .about{
+    &__container{
+      max-width: $max-width-laptop;
+      padding: 89px 15px;
+    }
+  }
+}
+
+@media (max-width:360px){
+  .about{
+    &__container{
+      max-width: $max-width-mobile;
+      padding-top: 40px;
+      padding-bottom: 71px;     
+    }
+    &__title{
+      text-align: center;
+      margin-left: 0;
+    }
+  }
+}
