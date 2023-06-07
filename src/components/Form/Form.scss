@@ -1,0 +1,28 @@
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  &__position{
+    margin-bottom: 11px;
+    color: #000;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  &__btn{
+    width: 100px;
+    height: 34px;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    background-color: #B4B4B4;
+    border-radius: 80px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: inline-block;
+    font-size: 16px;
+    width: 100px;
+    height: 34px;
+    text-align: center;
+    align-self: center;
+  }
+}

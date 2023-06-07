@@ -1,0 +1,20 @@
+@import '../../styles/variables.scss';
+.post{
+  margin-bottom: 100px;
+  &__container{
+    max-width: $max-width-big;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__title{
+    color: #000;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 40px;
+  }
+}
