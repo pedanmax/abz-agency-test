@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { CircularProgress } from '@mui/material';
 import Card from '../Card/Card';
 import Button from '../Button/Button';
 import './CardList.scss';
@@ -57,8 +58,8 @@ const CardList = () => {
             </li>
           );
         })}
-        {loading && <h1 className='loading'> LOADING</h1>}
       </ul>
+      {loading && <CircularProgress sx={{ marginBottom: '50px' }} />}
       <Button
         text='Show more'
         func={handleLastPage}
