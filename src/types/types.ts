@@ -6,3 +6,10 @@ export interface CardProps {
   name: string,
   id: number,
 }
+
+export interface ButtonProps {
+  text:string,
+  anchor?: string,
+  func?: () => void,
+  stateBtn?: string | null,
+}
