@@ -1,11 +1,12 @@
 .card{
-  // max-width: 370px;
+  
   &__wrapper{
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     word-break: break-all;
+    overflow: hidden;
   }
   &__box-img{
     max-width: 70px;
@@ -27,6 +28,11 @@
   }
   &__title, &__position, &__link{
     line-height: 26px;
+    max-width: 326px;
+    text-overflow: ellipsis; 
+    display: block; 
+    overflow: hidden; 
+    white-space: nowrap;
   }
   &__link:first-of-type{
     z-index: 10;
@@ -52,5 +58,20 @@
   &__link:last-of-type:hover::before{
     visibility: visible;
     opacity: 1;
+  }
+}
+
+@media(max-width:1024px){
+  .card{
+    &__title, &__position, &__link{
+      max-width: 240px;
+    }
+  }
+}
+@media(max-width:768px){
+  .card{
+    &__title, &__position, &__link{
+      max-width: 300px;
+    }
   }
 }

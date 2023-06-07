@@ -9,12 +9,38 @@
     border-radius: 20px;
     transition: all 0.5s ease;
     &:hover{
-      box-shadow: 0 0 10px 1px #000;
+      box-shadow: 0 0 10px 0px #747474;
     }
   }
 }
-.loading{
-  font-size: 50px;
-  font-weight: 700;
-  color: red;
+@media (max-width:1168px){
+  .cardlist{
+    padding: 0 60px;
+    justify-content: space-between;
+    &__item{
+      flex-basis: 282px;
+    }
+  }
+}
+@media (max-width:1023px){
+  .cardlist{
+    padding: 0 32px;
+    justify-content: center;
+    gap: 16px;
+    &__item{
+      flex-basis: 344px;
+    }
+  }
+}
+
+@media (max-width:768px){
+  .cardlist{
+    
+  }
+}
+
+@media (max-width:360px){
+  .cardlist{
+    gap: 20px ;
+  }
 }
