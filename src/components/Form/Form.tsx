@@ -1,28 +1,41 @@
-/* eslint-disable max-len */
-/* eslint-disable react/jsx-props-no-spreading */
 import {
-  TextField, FormControlLabel, Radio, Button, FormLabel, FormControl, RadioGroup, FormHelperText,
+  TextField, FormControlLabel, Radio, FormControl, RadioGroup, FormHelperText,
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import CustomFileInput from '../CustomFileInput/CustomFileInput';
 import { DataForm, PositionUser } from '../../types/types';
 import './Form.scss';
+import '../CustomFileInput/CustomFileInput.scss';
 
 const Form = () => {
   const {
-    register, handleSubmit, formState: { errors }, reset,
+    register, handleSubmit, formState: { errors },
   } = useForm<DataForm>({ mode: 'onChange', reValidateMode: 'onChange' });
   const [radio, setRadio] = useState('');
   const [positions, setPosition] = useState([]);
   const wayToPositions = 'https://frontend-test-assignment-api.abz.agency/api/v1/positions';
+  const [file, setFile] = useState('Upload your photo');
+
+  const handleFile = (e: { target: HTMLInputElement }) => {
+    setFile(e.target.value);
+    const ext = e.target.value.slice(e.target.value.lastIndexOf('.'));
+    setFile(e.target.value.slice(e.target.value.lastIndexOf('\\') + 1));
+    console.log(errors);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRadio(e.target.value);
   };
 
-  const onSubmit = (data: DataForm) : void => {
+  const checkTypeFile = (value:string) => {
+    if (value.includes('jpg')) return true;
+    if (value.includes('jpeg')) return true;
+    return false;
+  };
+  console.log(errors);
+  const onSubmit = (data: DataForm) => {
     console.log(data);
+    console.log(Object.keys(errors).length);
   };
 
   useEffect(() => {
@@ -40,16 +53,18 @@ const Form = () => {
         type='text'
         autoComplete='off'
         label='Your name'
-        sx={{ marginBottom: '50px' }}
+        inputProps={{ style: { fontFamily: 'Nunito' } }}
+        sx={{ marginBottom: '47px' }}
+        defaultValue='max'
         {...register('name', {
           required: 'This field is required',
           minLength: {
-            value: 3,
-            message: 'Name is too short, minimum three letters',
+            value: 2,
+            message: 'Username, should be 2-60 characters',
           },
-          validate: {
-            firstLetter: (value: string) => value[0] === value[0].toUpperCase() || 'First letter must be uppercase',
-            numbers: (value: string) => !/[0-9]/.test(value) || 'Name must be without numbers',
+          maxLength: {
+            value: 60,
+            message: 'Username, should be 2-60 characters',
           },
         })}
         error={!!errors?.name?.message?.toString()}
@@ -60,11 +75,12 @@ const Form = () => {
         type='email'
         autoComplete='off'
         label='Email'
+        defaultValue='m.pedan201@gmail.com'
         sx={{ marginBottom: '50px' }}
         {...register('email', {
           required: 'This field is required',
           pattern: {
-            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            value: /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/,
             message: 'Please enter a valid email',
           },
         })}
@@ -77,27 +93,19 @@ const Form = () => {
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         autoComplete='off'
         label='Phone'
-        sx={{ marginBottom: '43px' }}
+        sx={{ marginBottom: '15px' }}
         {...register('number', {
           required: 'This field is required',
-          minLength: {
-            value: 6,
-            message: 'Number is too short, minimum 6 symbols',
-          },
-          maxLength: {
-            value: 12,
-            message: 'Number is too long, maximum 12 symbols',
-          },
           pattern: {
-            value: /^[0-9+-]+$/,
-            message: 'Please enter a valid number',
+            value: /^[\\+]{0,1}380([0-9]{9})$/,
+            message: 'Number should start with code of Ukraine +380',
           },
         })}
         error={!!errors?.number?.message?.toString()}
-        helperText={errors?.number?.message ? errors?.number?.message : '+38 XXX XXX - XX - XX'}
+        helperText={errors?.number?.message ? errors?.number?.message : '+38 (XXX) XXX - XX - XX'}
       />
       <p className="form__position">Select your position</p>
-      <FormControl sx={{ paddingBottom: '30px' }}>
+      <FormControl sx={{ paddingBottom: '40px' }}>
         <RadioGroup
           name="controlled-radio-buttons-group"
           value={radio}
@@ -111,8 +119,9 @@ const Form = () => {
                   <Radio
                     {...register('radio', { required: 'You must choose one option' })}
                     value={position.name}
+                    sx={{ height: '34px' }}
                   />
-                )}
+                  )}
                 label={position.name}
               />
             );
@@ -120,21 +129,38 @@ const Form = () => {
         </RadioGroup>
         {errors.radio?.message && <FormHelperText sx={{ color: 'red' }}>{errors.radio?.message}</FormHelperText>}
       </FormControl>
-      <Button
-        variant="outlined"
-        component="label"
-        sx={{ marginBottom: '50px' }}
-      >
-        Upload File
+      <div className="file">
         <input
-          {...register('file')}
           type="file"
-          hidden
-          className='btn'
+          id='photo'
+          className="file__input"
+          {...register('file', {
+            validate: (value) => checkTypeFile((value[0] as File).name) || 'You can choose file type only jpeg/jpg',
+            required: 'This field is required',
+            onChange: handleFile,
+          })}
         />
-      </Button>
-      <CustomFileInput />
-      <button type='submit' className='form__btn'>
+        <label
+          className="file__label"
+          style={{
+            border: errors.file?.message ? '2px solid red' : '1px solid #D0CFCF',
+            borderLeft: errors.file?.message ? '0px solid red' : '1px solid #D0CFCF',
+            borderRadius: '0px 4px 4px 0px',
+          }}
+        >
+          <p className="file__name">{file}</p>
+        </label>
+        <button
+          type='button'
+          className="file__button"
+          style={{ border: errors.file?.message ? '2px solid red' : '1px solid rgba(0, 0, 0, 0.87)' }}
+        >
+          Upload
+        </button>
+        {errors.file?.message && <p className="file__error">{errors.file?.message}</p>}
+      </div>
+      {/* <CustomFileInput register={register} errorText={errors.file?.message} /> */}
+      <button type='submit' className='form__btn' style={{ color: !Object.keys(errors).length ? 'red' : 'green' }}>
         Sign up
       </button>
     </form>

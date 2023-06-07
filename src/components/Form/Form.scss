@@ -3,10 +3,10 @@
   flex-direction: column;
   width: 380px;
   &__position{
-    margin-bottom: 11px;
     color: #000;
     font-size: 16px;
     line-height: 26px;
+    margin-bottom: 6px;
   }
   &__btn{
     width: 100px;
@@ -24,5 +24,10 @@
     height: 34px;
     text-align: center;
     align-self: center;
+  }
+}
+@media (max-width:400px){
+  .form{
+    width: 328px;
   }
 }

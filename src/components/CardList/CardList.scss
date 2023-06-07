@@ -4,6 +4,7 @@
   gap: 29px;
   margin-bottom: 50px;
   width: 100%;
+  box-sizing: border-box;
   &__item{
     flex: 0 1 370px;
     cursor: pointer;

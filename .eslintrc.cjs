@@ -32,5 +32,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'off',
     'react-hooks/exhaustive-deps': 0,
     'jsx-a11y/label-has-associated-control': 0,
+    'react/jsx-props-no-spreading': 0,
+    'no-control-regex': 0,
   },
 };
