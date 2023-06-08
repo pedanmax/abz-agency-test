@@ -1,13 +1,13 @@
 import Form from '../../components/Form/Form';
-import Button from '../../components/Button/Button';
 import './Post.scss';
+import { CardProps } from '../../types/types';
 
-const Post = () => {
+const Post = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
   return (
     <section id='post' className="post">
       <div className="post__container">
         <h2 className="post__title">Working with POST request</h2>
-        <Form />
+        <Form submitForm={submitForm} />
       </div>
     </section>
   );

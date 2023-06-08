@@ -1,15 +1,18 @@
+/* eslint-disable max-len */
 import {
   TextField, FormControlLabel, Radio, FormControl, RadioGroup, FormHelperText,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
+import {
+  useState, useEffect,
+} from 'react';
 import { useForm } from 'react-hook-form';
-import { DataForm, PositionUser } from '../../types/types';
+import { CardProps, DataForm, PositionUser } from '../../types/types';
 import './Form.scss';
 import '../CustomFileInput/CustomFileInput.scss';
 
-const Form = () => {
+const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit, formState: { errors, isSubmitSuccessful, isSubmitting }, reset,
   } = useForm<DataForm>({ mode: 'onChange', reValidateMode: 'onChange' });
   const [radio, setRadio] = useState('');
   const [positions, setPosition] = useState([]);
@@ -32,9 +35,32 @@ const Form = () => {
     }
     return false;
   };
-  const onSubmit = (data: DataForm) => {
-    console.log(data);
-    console.log(Object.keys(errors).length);
+
+  const onSubmit = async (data: DataForm, e:any) => {
+    const getToken = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/token');
+    const resToken = await getToken.json();
+    const { token } = await resToken;
+
+    const postReq = await fetch(
+      'https://frontend-test-assignment-api.abz.agency/api/v1/users',
+      {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: {
+          Token: token,
+        },
+      },
+    );
+    const postRes = await postReq.json();
+    const { success, message } = postRes;
+    if (success) {
+      reset();
+      setFile('Upload your photo');
+      alert(message);
+      const reqToFirstPage = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6');
+      const resultRequest = await reqToFirstPage.json();
+      submitForm(resultRequest.users);
+    } else alert(message);
   };
 
   useEffect(() => {
@@ -93,15 +119,15 @@ const Form = () => {
         autoComplete='off'
         label='Phone'
         sx={{ marginBottom: '15px' }}
-        {...register('number', {
+        {...register('phone', {
           required: 'This field is required',
           pattern: {
             value: /^[\\+]{0,1}380([0-9]{9})$/,
             message: 'Number should start with code of Ukraine +380',
           },
         })}
-        error={!!errors?.number?.message?.toString()}
-        helperText={errors?.number?.message ? errors?.number?.message : '+38 (XXX) XXX - XX - XX'}
+        error={!!errors?.phone?.message?.toString()}
+        helperText={errors?.phone?.message ? errors?.phone?.message : '+38 (XXX) XXX - XX - XX'}
       />
       <p className="form__position">Select your position</p>
       <FormControl sx={{ paddingBottom: '40px' }}>
@@ -116,8 +142,8 @@ const Form = () => {
                 key={position.id}
                 control={(
                   <Radio
-                    {...register('radio', { required: 'You must choose one option' })}
-                    value={position.name}
+                    {...register('position_id', { required: 'You must choose one option' })}
+                    value={position.id}
                     sx={{ height: '34px' }}
                   />
                   )}
@@ -126,14 +152,14 @@ const Form = () => {
             );
           })}
         </RadioGroup>
-        {errors.radio?.message && <FormHelperText sx={{ color: 'red' }}>{errors.radio?.message}</FormHelperText>}
+        {errors.position_id?.message && <FormHelperText sx={{ color: 'red' }}>{errors.position_id?.message}</FormHelperText>}
       </FormControl>
       <div className="file">
         <input
           type="file"
           id='photo'
           className="file__input"
-          {...register('file', {
+          {...register('photo', {
             validate: (value) => checkFile((value[0] as File)) || 'You can choose file type only jpeg/jpg, less then 5mb',
             required: 'This field is required',
             onChange: handleFile,
@@ -142,8 +168,8 @@ const Form = () => {
         <label
           className="file__label"
           style={{
-            border: errors.file?.message ? '2px solid red' : '1px solid #D0CFCF',
-            borderLeft: errors.file?.message ? '0px solid red' : '1px solid #D0CFCF',
+            border: errors.photo?.message ? '2px solid red' : '1px solid #D0CFCF',
+            borderLeft: errors.photo?.message ? '0px solid red' : '1px solid #D0CFCF',
             borderRadius: '0px 4px 4px 0px',
           }}
         >
@@ -152,11 +178,11 @@ const Form = () => {
         <button
           type='button'
           className="file__button"
-          style={{ border: errors.file?.message ? '2px solid red' : '1px solid rgba(0, 0, 0, 0.87)' }}
+          style={{ border: errors.photo?.message ? '2px solid red' : '1px solid rgba(0, 0, 0, 0.87)' }}
         >
           Upload
         </button>
-        {errors.file?.message && <p className="file__error">{errors.file?.message}</p>}
+        {errors.photo?.message && <p className="file__error">{errors.photo?.message}</p>}
       </div>
       {/* <CustomFileInput register={register} errorText={errors.file?.message} /> */}
       <button type='submit' className='form__btn'>

@@ -15,9 +15,9 @@ export interface ButtonProps {
 export interface DataForm {
   name:string,
   email: string,
-  number: string,
-  radio: string,
-  file: FileList,
+  phone: string,
+  position_id: string,
+  photo: FileList,
 }
 
 export interface PositionUser {

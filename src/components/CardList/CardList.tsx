@@ -5,18 +5,17 @@ import Button from '../Button/Button';
 import './CardList.scss';
 import { CardProps } from '../../types/types';
 
-const CardList = () => {
+const CardList = ({ submited } : { submited: CardProps[] }) => {
   const [cards, setCards] = useState<CardProps[]>([]);
   const [data, setData] = useState({});
   const [nextLink, setNextLink] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
-  const way = `https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${page}&count=6`;
 
   useEffect(() => {
     setLoading(true);
-    fetch(way)
+    fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6')
       .then((res) => res.json())
       .then((res) => {
         setCards(res.users);
@@ -26,6 +25,10 @@ const CardList = () => {
       })
       .then(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    setCards(submited);
+  }, [submited]);
 
   const handleLastPage = async () => {
     if (page < totalPages) {
