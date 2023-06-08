@@ -17,22 +17,21 @@ const Form = () => {
   const [file, setFile] = useState('Upload your photo');
 
   const handleFile = (e: { target: HTMLInputElement }) => {
-    setFile(e.target.value);
-    const ext = e.target.value.slice(e.target.value.lastIndexOf('.'));
     setFile(e.target.value.slice(e.target.value.lastIndexOf('\\') + 1));
-    console.log(errors);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRadio(e.target.value);
   };
 
-  const checkTypeFile = (value:string) => {
-    if (value.includes('jpg')) return true;
-    if (value.includes('jpeg')) return true;
+  const checkFile = (value:File) => {
+    if (value.size / (1025 ** 2) < 5) {
+      if (value.name.includes('jpg') || value.name.includes('jpeg')) {
+        return true;
+      }
+    }
     return false;
   };
-  console.log(errors);
   const onSubmit = (data: DataForm) => {
     console.log(data);
     console.log(Object.keys(errors).length);
@@ -109,7 +108,7 @@ const Form = () => {
         <RadioGroup
           name="controlled-radio-buttons-group"
           value={radio}
-          onChange={handleChange}
+          onChange={handleRadio}
         >
           {positions && positions.map((position: PositionUser) => {
             return (
@@ -135,7 +134,7 @@ const Form = () => {
           id='photo'
           className="file__input"
           {...register('file', {
-            validate: (value) => checkTypeFile((value[0] as File).name) || 'You can choose file type only jpeg/jpg',
+            validate: (value) => checkFile((value[0] as File)) || 'You can choose file type only jpeg/jpg, less then 5mb',
             required: 'This field is required',
             onChange: handleFile,
           })}
@@ -160,7 +159,7 @@ const Form = () => {
         {errors.file?.message && <p className="file__error">{errors.file?.message}</p>}
       </div>
       {/* <CustomFileInput register={register} errorText={errors.file?.message} /> */}
-      <button type='submit' className='form__btn' style={{ color: !Object.keys(errors).length ? 'red' : 'green' }}>
+      <button type='submit' className='form__btn'>
         Sign up
       </button>
     </form>

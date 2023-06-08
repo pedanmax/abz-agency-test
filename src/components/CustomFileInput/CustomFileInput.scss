@@ -40,6 +40,10 @@
   &__name{
     position: absolute;
     left: 15px;
+    max-width: 280px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   &__error{
     color: red;
@@ -52,5 +56,8 @@
 @media (max-width:400px){
   .file{
     width: 328px;
+    &__name{
+      max-width: 220px;
+    }
   }
 }
