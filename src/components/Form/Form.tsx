@@ -12,7 +12,7 @@ import '../CustomFileInput/CustomFileInput.scss';
 
 const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
   const {
-    register, handleSubmit, formState: { errors, isSubmitSuccessful, isSubmitting }, reset,
+    register, handleSubmit, formState: { errors, isValid }, reset,
   } = useForm<DataForm>({ mode: 'onChange', reValidateMode: 'onChange' });
   const [radio, setRadio] = useState('');
   const [positions, setPosition] = useState([]);
@@ -185,7 +185,11 @@ const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
         {errors.photo?.message && <p className="file__error">{errors.photo?.message}</p>}
       </div>
       {/* <CustomFileInput register={register} errorText={errors.file?.message} /> */}
-      <button type='submit' className='form__btn'>
+      <button
+        type='submit'
+        className='form__btn'
+        style={{ backgroundColor: isValid ? '#F4E041' : '#B4B4B4', color: isValid ? '#000' : '#fff' }}
+      >
         Sign up
       </button>
     </form>
