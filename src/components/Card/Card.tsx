@@ -2,7 +2,7 @@ import './Card.scss';
 import { CardProps } from '../../types/types';
 
 const Card = ({
-  photo, phone, email, position, name, id,
+  photo, phone, email, position, name,
 } : CardProps) => {
   const numberLink = `tel:${phone}`;
   const emailLink = `emailto:${email}`;

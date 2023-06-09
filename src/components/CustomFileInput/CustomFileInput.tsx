@@ -4,7 +4,6 @@ import './CustomFileInput.scss';
 import {
   FieldValues, UseFormRegister,
 } from 'react-hook-form';
-import { DataForm } from '../../types/types';
 
 interface Test {
   register : UseFormRegister<FieldValues>,

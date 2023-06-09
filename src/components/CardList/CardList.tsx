@@ -7,7 +7,7 @@ import { CardProps } from '../../types/types';
 
 const CardList = ({ submited } : { submited: CardProps[] }) => {
   const [cards, setCards] = useState<CardProps[]>([]);
-  const [data, setData] = useState({});
+  const [, setData] = useState({});
   const [nextLink, setNextLink] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
