@@ -1,0 +1,42 @@
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    'airbnb',
+    'airbnb-typescript',
+    'airbnb/hooks',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+  },
+  plugins: [
+    '@typescript-eslint',
+    'react',
+  ],
+  rules: {
+    'react/react-in-jsx-scope': 0,
+    'jsx-quotes': 0,
+    'react/function-component-definition': 0,
+    'arrow-body-style': 0,
+    'react/no-unescaped-entities': 0,
+    'react/require-default-props': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'off',
+    'react-hooks/exhaustive-deps': 0,
+    'jsx-a11y/label-has-associated-control': 0,
+    'react/jsx-props-no-spreading': 0,
+    'no-control-regex': 0,
+    'max-len': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
+    'import/no-named-as-default': 0,
+  },
+};

@@ -1,0 +1,23 @@
+@import '../../styles/variables.scss';
+.list{
+  &__link{
+    cursor: pointer;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: $primary-color;
+    border-radius: 80px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: inline-block;
+    font-size: 16px;
+    width: 100px;
+    height: 34px;
+    text-align: center;
+    &:hover{
+      background-color: $hover-button-color;
+    }
+    &:active{
+      background-color: $active-button-color;
+    }
+  }
+}

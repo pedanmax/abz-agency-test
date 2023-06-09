@@ -1,0 +1,63 @@
+.file{
+  width: 380px;
+  height: 54px;
+  text-align: center;
+  border: 1px solid #D0CFCF;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  margin-bottom: 50px;
+  &__input{
+    width: 83px;
+    height: 54px;
+    z-index: 1;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    opacity: 0;
+  }
+  &__button{
+    border: 1px solid rgba(0, 0, 0, 0.87);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 83px;
+    height: 54px;
+    border-radius: 4px 0px 0px 4px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    z-index: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  &__label{
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+  }
+  &__name{
+    position: absolute;
+    left: 15px;
+    max-width: 280px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &__error{
+    color: red;
+    font-size: 13px;
+    position: absolute;
+    bottom: -22px;
+    left: 17px;
+  }
+}
+@media (max-width:400px){
+  .file{
+    width: 328px;
+    &__name{
+      max-width: 220px;
+    }
+  }
+}
