@@ -10,7 +10,7 @@ import { CardProps, DataForm, PositionUser } from '../../types/types';
 import './Form.scss';
 import '../CustomFileInput/CustomFileInput.scss';
 
-const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
+const Form = ({ submitForm, submitResult, showModal } : { submitForm: (value:CardProps[]) => void, submitResult: (message: string, success:boolean) => void, showModal: (value: boolean) => void }) => {
   const {
     register, handleSubmit, formState: { errors, isValid }, reset,
   } = useForm<DataForm>({ mode: 'onChange', reValidateMode: 'onChange' });
@@ -36,7 +36,7 @@ const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
     return false;
   };
 
-  const onSubmit = async (data: DataForm, e:any) => {
+  const onSubmit = async (_data: DataForm, e:any) => {
     const getToken = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/token');
     const resToken = await getToken.json();
     const { token } = await resToken;
@@ -45,7 +45,7 @@ const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
       'https://frontend-test-assignment-api.abz.agency/api/v1/users',
       {
         method: 'POST',
-        body: new FormData(e.target),
+        body: new FormData((e.target)),
         headers: {
           Token: token,
         },
@@ -53,14 +53,15 @@ const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
     );
     const postRes = await postReq.json();
     const { success, message } = postRes;
+    submitResult(message, success);
+    showModal(true);
     if (success) {
       reset();
       setFile('Upload your photo');
-      alert(message);
       const reqToFirstPage = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6');
       const resultRequest = await reqToFirstPage.json();
       submitForm(resultRequest.users);
-    } else alert(message);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +81,6 @@ const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
         label='Your name'
         inputProps={{ style: { fontFamily: 'Nunito' } }}
         sx={{ marginBottom: '47px' }}
-        defaultValue='max'
         {...register('name', {
           required: 'This field is required',
           minLength: {
@@ -100,7 +100,6 @@ const Form = ({ submitForm } : { submitForm: (value:CardProps[]) => void }) => {
         type='email'
         autoComplete='off'
         label='Email'
-        defaultValue='m.pedan201@gmail.com'
         sx={{ marginBottom: '50px' }}
         {...register('email', {
           required: 'This field is required',
